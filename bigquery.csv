@@ -1,0 +1,14 @@
+SELECT
+  file.project AS package_name,
+  COUNT(*) AS download_count
+FROM
+  `bigquery-public-data.pypi.file_downloads`
+WHERE
+  timestamp BETWEEN '2020-04-01' AND '2020-05-01'
+  AND (file.project LIKE '%geo%'
+       OR file.project LIKE '%gis%'
+       OR file.project LIKE '%spatial%')
+GROUP BY
+  package_name
+ORDER BY
+  download_count DESC
